@@ -1,0 +1,17 @@
+pipeline {
+   agent any
+   tools {
+     maven 'maven'
+    }
+    stages {
+      stage ( "Clean up" ){
+          steps {
+              deleteDir()
+          }
+       }
+      stage ( "Clone repo" ){
+                steps {
+                   sh "git clone https://github.com/SabaHm123/ex1spring.git"
+            }
+       }
+
