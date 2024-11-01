@@ -36,7 +36,7 @@ pipeline {
 
         stage("Run Docker Compose") {
             steps {
-                dir("Tp2Jenkins") {
+                dir("ex1spring") {
                     sh "docker compose up -d"
                 }
             }
