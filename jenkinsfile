@@ -2,32 +2,36 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven_3.8.1' // Utilisez le nom exact de l'installation configurée
+        maven 'install maven' // Define Maven tool to be used
     }
 
     stages {
         stage("Clean up") {
             steps {
-                deleteDir() // Nettoie le workspace avant de commencer
+                deleteDir() // Clean up the workspace before starting
             }
         }
 
         stage("Checkout SCM") {
             steps {
+
                 checkout scm
+
             }
         }
 
         stage("Build project") {
             steps {
+                // Navigate to the project directory and build the Maven project
                 dir("${env.WORKSPACE}") {
-                    sh "mvn clean package" // Compile le projet Maven
+                    sh "mvn clean package" // Package the project into a jar
                 }
             }
         }
 
         stage("Build Docker Image") {
             steps {
+                // Build the Docker image using the Dockerfile
                 dir("${env.WORKSPACE}") {
                     sh "docker build -t docexp1-spring ."
                 }
@@ -36,7 +40,8 @@ pipeline {
 
         stage("Run Docker Compose") {
             steps {
-                dir("ex1spring") {
+                // Run Docker Compose to start the application
+                dir("Tp2Jenkins") {
                     sh "docker compose up -d"
                 }
             }
